@@ -11,7 +11,10 @@ void* operator new(size_t sz) throw (std::bad_alloc) {
     return ret;
 }
 
-void operator delete(void *p, std::size_t sz) throw () {
+#pragma GCC diagnostic ignored "-Wc++14-compat"
+
+
+void operator delete(void *p, std::size_t sz) {
     if (LIBPM <= (unsigned long long) p && (unsigned long long) p <= LIBPM + PMSIZE)
 	pfree(p);
     else
